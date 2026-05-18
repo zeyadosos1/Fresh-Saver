@@ -1,0 +1,14 @@
+# Disable directory listing
+Options -Indexes
+
+# Prevent access to config files and hidden files
+<FilesMatch "^(config\.php|\.env|.*\.log|.*\.sql)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Allow cross origin for Angular development (if needed beyond PHP headers)
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "http://localhost:4200"
+    Header set Access-Control-Allow-Credentials "true"
+</IfModule>

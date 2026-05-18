@@ -1,0 +1,39 @@
+<app-navbar />
+
+<div class="reservations-container">
+  <div class="header-section">
+    <h2>📋 My Reservations</h2>
+    <p>Show these at the store within 24 hours to claim and pay for your items.</p>
+  </div>
+
+  @if (reservations().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">⏳</div>
+      <h3>No active reservations</h3>
+      <p>Go browse some deals and save money!</p>
+    </div>
+  } @else {
+    <div class="reservations-grid">
+      @for (res of reservations(); track res.id) {
+        <div class="reservation-card">
+          <div class="res-header">
+            <span class="status-badge">✅ Valid</span>
+            <span class="valid-until">Expires: {{ res.valid_until | date:'short' }}</span>
+          </div>
+          <div class="res-body">
+            <h3>{{ res.item_name }}</h3>
+            <p class="vendor">🏪 {{ res.vendor_name }}</p>
+            <div class="qty-price">
+              <span class="qty">Qty: {{ res.qty }}</span>
+              <span class="price">{{ res.discounted_price | number:'1.2-2' }} EGP/each</span>
+            </div>
+            <div class="total-row">
+              <span>Total to pay:</span>
+              <span class="total-amount">{{ (res.qty * res.discounted_price) | number:'1.2-2' }} EGP</span>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

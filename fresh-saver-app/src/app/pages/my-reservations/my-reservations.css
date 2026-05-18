@@ -1,0 +1,69 @@
+.reservations-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+}
+.header-section { margin-bottom: 2rem; }
+.header-section h2 { font-size: 2rem; font-weight: 800; color: #114B3B; margin-bottom: 0.5rem; }
+.header-section p { color: #475569; font-size: 1.1rem; }
+
+.empty-state { text-align: center; padding: 4rem 2rem; color: #6b7280; }
+.empty-icon { font-size: 4rem; margin-bottom: 1rem; }
+.empty-state h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #0f172a; }
+
+.reservations-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+.reservation-card {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.reservation-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+}
+.res-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+.status-badge {
+  background: #10B981;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.valid-until { font-size: 0.8rem; color: #ef4444; font-weight: 600; }
+
+.res-body h3 { font-size: 1.1rem; font-weight: 700; color: #0f172a; margin: 0 0 0.3rem 0; }
+.vendor { font-size: 0.85rem; color: #6b7280; margin: 0 0 1rem 0; }
+
+.qty-price {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #475569;
+}
+.qty { font-weight: 600; background: #f1f5f9; padding: 0.2rem 0.6rem; border-radius: 6px; }
+.price { font-weight: 600; }
+
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+  border-top: 1px dashed #e2e8f0;
+}
+.total-amount { font-size: 1.2rem; font-weight: 800; color: #114B3B; }

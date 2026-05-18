@@ -1,0 +1,105 @@
+<app-navbar />
+
+@if (toast()) {
+  <div class="toast">{{ toast() }}</div>
+}
+
+<div class="deals-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <h3>📚 Categories</h3>
+    @for (cat of categories; track cat) {
+      <button class="cat-btn" [class.active]="selectedCategory === cat"
+              (click)="selectedCategory = cat">
+        {{ cat }}
+      </button>
+    }
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+    <div class="deals-header">
+      <div>
+        <h2>Active Deals</h2>
+        <p>{{ filteredDeals.length }} deals found</p>
+      </div>
+      <div class="search-bar">
+        <span>🔍</span>
+        <input type="text" [(ngModel)]="searchQuery" placeholder="Search deals...">
+      </div>
+    </div>
+
+    @if (filteredDeals.length === 0) {
+      <div class="empty-state">
+        <div class="empty-icon">🛒</div>
+        <h3>No deals found</h3>
+        <p>Try a different category or search term.</p>
+      </div>
+    }
+
+    <div class="deals-grid">
+      @for (deal of filteredDeals; track deal.id) {
+        <div class="deal-card">
+          <div class="deal-img">
+            <span class="badge-discount">{{ discount(deal) }}% OFF</span>
+            <span class="deal-emoji">🛒</span>
+            <span class="badge-expiry">🗓️ {{ deal.expiry_date }}</span>
+          </div>
+          <div class="deal-body">
+            <span class="category-tag">{{ deal.category | uppercase }}</span>
+            <h4>{{ deal.item_name }}</h4>
+            <p class="store-name">🏪 {{ deal.vendor_name }}</p>
+            <div class="price-row">
+              <div>
+                <span class="price-new">{{ deal.discounted_price | number:'1.2-2' }} EGP</span>
+                <span class="price-old">{{ deal.original_price | number:'1.2-2' }} EGP</span>
+              </div>
+              <span class="stock">{{ deal.stock }} left</span>
+            </div>
+            <button class="btn-reserve" (click)="addToCart(deal)">
+              ➕ Reserve Deal
+            </button>
+          </div>
+        </div>
+      }
+    </div>
+  </main>
+
+  <!-- Cart Sidebar -->
+  <aside class="cart-sidebar">
+    <div class="cart-header">
+      <h3>🛒 Reservations</h3>
+      <span class="cart-count">{{ cart().length }} items</span>
+    </div>
+    
+    @if (cart().length === 0) {
+      <div class="empty-cart">
+        <p>No items reserved yet.</p>
+        <small>Click "Reserve Deal" to add items.</small>
+      </div>
+    } @else {
+      <div class="cart-items">
+        @for (item of cart(); track item.deal.id) {
+          <div class="cart-item">
+            <div class="cart-item-info">
+              <h4>{{ item.deal.item_name }}</h4>
+              <p>🏪 {{ item.deal.vendor_name }}</p>
+            </div>
+            <div class="cart-item-price-row">
+              <span class="cart-qty">x{{ item.qty }}</span>
+              <span class="cart-price">{{ (item.deal.discounted_price * item.qty) | number:'1.2-2' }} EGP</span>
+              <button class="btn-remove" (click)="removeFromCart(item.deal.id)">❌</button>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="cart-summary">
+        <div class="cart-total">
+          <span>Total to Pay:</span>
+          <span class="total-amount">{{ cartTotal() | number:'1.2-2' }} EGP</span>
+        </div>
+        <button class="btn-confirm" (click)="confirmReservation()">✅ Confirm Reservations</button>
+      </div>
+    }
+  </aside>
+</div>

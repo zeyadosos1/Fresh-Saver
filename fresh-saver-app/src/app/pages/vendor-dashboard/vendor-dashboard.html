@@ -1,0 +1,103 @@
+<app-navbar />
+
+@if (toast()) {
+  <div class="toast">{{ toast() }}</div>
+}
+
+<div class="dashboard">
+  <!-- Header -->
+  <div class="dash-header">
+    <div>
+      <h1>Vendor Dashboard</h1>
+      <p>Welcome back, <strong>{{ auth.currentUser()?.name }}</strong></p>
+    </div>
+    <button class="btn-add" (click)="openAdd()">+ Add New Deal</button>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card"><strong>{{ deals().length }}</strong><span>Active Listings</span></div>
+    <div class="stat-card green"><strong>🌱</strong><span>Food Rescued</span></div>
+    <div class="stat-card"><strong>{{ deals().length * 3 }}</strong><span>Est. Reservations</span></div>
+  </div>
+
+  <!-- Deals Table -->
+  @if (deals().length === 0) {
+    <div class="empty-state">
+      <div class="empty-icon">📦</div>
+      <h3>No deals yet</h3>
+      <p>Click "Add New Deal" to start listing your inventory.</p>
+    </div>
+  } @else {
+    <div class="deals-list">
+      @for (deal of deals(); track deal.id) {
+        <div class="deal-row">
+          <div class="deal-icon">📦</div>
+          <div class="deal-info">
+            <div class="deal-name">{{ deal.item_name }}</div>
+            <div class="deal-meta">{{ deal.category }} · Expires {{ deal.expiry_date }} · {{ deal.stock }} in stock</div>
+          </div>
+          <div class="deal-price">
+            <span class="price-new">{{ deal.discounted_price }} EGP</span>
+            <span class="price-old">{{ deal.original_price }} EGP</span>
+            <span class="badge-off">{{ discount(deal) }}% off</span>
+          </div>
+          <div class="deal-actions">
+            <button class="btn-edit" (click)="openEdit(deal)">Edit</button>
+            <button class="btn-delete" (click)="deleteDeal(deal.id)">Delete</button>
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>
+
+<!-- Modal -->
+@if (showModal()) {
+  <div class="modal-overlay" (click)="showModal.set(false)">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h3>{{ isEditing() ? 'Edit Deal' : 'Add New Deal' }}</h3>
+        <button (click)="showModal.set(false)" class="modal-close">&times;</button>
+      </div>
+
+      <form (ngSubmit)="save()">
+        <div class="field">
+          <label>Item Name</label>
+          <input type="text" [(ngModel)]="form.item_name" name="item_name" required>
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <select [(ngModel)]="form.category" name="category">
+            @for (cat of categories; track cat) {
+              <option [value]="cat">{{ cat }}</option>
+            }
+          </select>
+        </div>
+        <div class="fields-row">
+          <div class="field">
+            <label>Original Price (EGP)</label>
+            <input type="number" step="0.01" [(ngModel)]="form.original_price" name="original_price" required>
+          </div>
+          <div class="field">
+            <label>Discounted Price (EGP)</label>
+            <input type="number" step="0.01" [(ngModel)]="form.discounted_price" name="discounted_price" required>
+          </div>
+        </div>
+        <div class="fields-row">
+          <div class="field">
+            <label>Expiry Date</label>
+            <input type="date" [(ngModel)]="form.expiry_date" name="expiry_date" required>
+          </div>
+          <div class="field">
+            <label>Stock Amount</label>
+            <input type="number" [(ngModel)]="form.stock" name="stock" required>
+          </div>
+        </div>
+        <button type="submit" class="btn-submit">
+          {{ isEditing() ? 'Save Changes' : 'Add Deal' }}
+        </button>
+      </form>
+    </div>
+  </div>
+}

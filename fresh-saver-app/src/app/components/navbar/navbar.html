@@ -1,0 +1,30 @@
+<nav class="navbar">
+  <a routerLink="/home" class="nav-logo">
+    <img src="/logo.png" alt="Fresh Saver" class="logo-img">
+  </a>
+
+  <div class="nav-links" [class.open]="menuOpen">
+    <a routerLink="/home" routerLinkActive="active" (click)="menuOpen=false">Home</a>
+    <a routerLink="/shoppers" routerLinkActive="active" (click)="menuOpen=false">For Shoppers</a>
+    <a routerLink="/vendors" routerLinkActive="active" (click)="menuOpen=false">For Vendors</a>
+    <a routerLink="/pricing" routerLinkActive="active" (click)="menuOpen=false">Pricing</a>
+    @if (auth.isLoggedIn() && auth.currentUser()?.role === 'shopper') {
+      <a routerLink="/browse" routerLinkActive="active" (click)="menuOpen=false">Browse Deals</a>
+      <a routerLink="/my-reservations" routerLinkActive="active" (click)="menuOpen=false">My Reservations</a>
+    }
+    @if (auth.isLoggedIn() && auth.currentUser()?.role === 'vendor') {
+      <a routerLink="/vendor" routerLinkActive="active" (click)="menuOpen=false">Dashboard</a>
+    }
+  </div>
+
+  <div class="nav-actions">
+    @if (!auth.isLoggedIn()) {
+      <a routerLink="/auth" class="btn-outline">Log In</a>
+      <a routerLink="/auth" class="btn-solid">Get Started</a>
+    } @else {
+      <span class="nav-user">👤 {{ auth.currentUser()?.name }}</span>
+      <button class="btn-outline" (click)="auth.logout()">Log Out</button>
+    }
+    <button class="hamburger" (click)="menuOpen = !menuOpen">☰</button>
+  </div>
+</nav>

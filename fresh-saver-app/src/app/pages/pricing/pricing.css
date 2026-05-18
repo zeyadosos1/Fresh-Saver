@@ -1,0 +1,144 @@
+.pricing-hero {
+  text-align: center;
+  padding: 5rem 2rem 3rem;
+  background: white;
+}
+
+.pricing-hero h1 {
+  font-size: 3rem;
+  color: #114B3B;
+  margin-bottom: 1rem;
+}
+
+.pricing-hero p {
+  font-size: 1.2rem;
+  color: #64748b;
+}
+
+.pricing-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  padding: 2rem 10% 6rem;
+  background: white;
+  flex-wrap: wrap;
+}
+
+.pricing-card {
+  background: #f8fafc;
+  padding: 3rem;
+  border-radius: 24px;
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.3s ease;
+  border: 1px solid #e2e8f0;
+}
+
+.pricing-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+}
+
+.pricing-card.vendor {
+  background: #114B3B;
+  color: white;
+  border: none;
+  transform: scale(1.05);
+}
+
+.pricing-card.vendor:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 20px 40px rgba(17, 75, 59, 0.2);
+}
+
+.popular-badge {
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  background: #F59E0B;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 12px;
+  letter-spacing: 1px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: inherit;
+}
+
+.pricing-card.shopper h2 {
+  color: #114B3B;
+}
+
+.price {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.price span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.pricing-card.vendor .price span {
+  color: #cbd5e1;
+}
+
+.pricing-card p {
+  margin-bottom: 2rem;
+  color: #64748b;
+}
+
+.pricing-card.vendor p {
+  color: #cbd5e1;
+}
+
+ul {
+  list-style: none;
+  margin-bottom: 2.5rem;
+}
+
+li {
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-solid {
+  display: block;
+  text-align: center;
+  padding: 1rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-green {
+  background: #10B981;
+  color: white;
+}
+
+.btn-green:hover {
+  background: #059669;
+}
+
+.btn-dark {
+  background: white;
+  color: #114B3B;
+}
+
+.btn-dark:hover {
+  background: #f8fafc;
+}

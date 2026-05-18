@@ -1,0 +1,70 @@
+<div class="auth-page">
+  <div class="auth-card">
+
+    <div class="auth-logo"><img src="/logo.png" alt="Fresh Saver" class="logo-img"></div>
+    <p class="auth-tagline">Rescue food. Save money.</p>
+
+    <!-- Tab toggle -->
+    <div class="auth-tabs">
+      <button [class.active]="activeForm === 'login'" (click)="activeForm = 'login'; errorMsg.set('')">Log In</button>
+      <button [class.active]="activeForm === 'register'" (click)="activeForm = 'register'; errorMsg.set('')">Register</button>
+    </div>
+
+    <!-- Error -->
+    @if (errorMsg()) {
+      <div class="error-banner">⚠️ {{ errorMsg() }}</div>
+    }
+
+    <!-- Login Form -->
+    @if (activeForm === 'login') {
+      <form (ngSubmit)="onLogin()">
+        <div class="field">
+          <label for="login-email">Email</label>
+          <input id="login-email" type="email" [(ngModel)]="login.email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label for="login-pass">Password</label>
+          <input id="login-pass" type="password" [(ngModel)]="login.password" name="password" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn-submit" [disabled]="loading()">
+          {{ loading() ? 'Logging in...' : 'Log In' }}
+        </button>
+        <p class="switch-link">Don't have an account?
+          <a (click)="activeForm = 'register'">Register here</a>
+        </p>
+      </form>
+    }
+
+    <!-- Register Form -->
+    @if (activeForm === 'register') {
+      <form (ngSubmit)="onRegister()">
+        <div class="field">
+          <label for="reg-name">Full Name</label>
+          <input id="reg-name" type="text" [(ngModel)]="register.name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="reg-email">Email</label>
+          <input id="reg-email" type="email" [(ngModel)]="register.email" name="email" placeholder="you@email.com" required>
+        </div>
+        <div class="field">
+          <label for="reg-pass">Password</label>
+          <input id="reg-pass" type="password" [(ngModel)]="register.password" name="password" placeholder="Create a password" required>
+        </div>
+        <div class="field">
+          <label for="reg-role">I am a...</label>
+          <select id="reg-role" [(ngModel)]="register.role" name="role">
+            <option value="shopper">Shopper (Looking for deals)</option>
+            <option value="vendor">Vendor (Supermarket / Store)</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-submit" [disabled]="loading()">
+          {{ loading() ? 'Creating account...' : 'Create Account' }}
+        </button>
+        <p class="switch-link">Already have an account?
+          <a (click)="activeForm = 'login'">Log in</a>
+        </p>
+      </form>
+    }
+
+  </div>
+</div>
